@@ -16,6 +16,8 @@ import Myp1 from './comp/login/mypage01'
 import Ax1 from './comp/ax/ax01'
 
 
+import Ref from './comp/inp/Ref01'
+
 
 function App() {
   return (
@@ -38,6 +40,9 @@ function App() {
 
 
           <Route path={"/ax1"} element={<Ax1 />} />
+
+
+          <Route path={"/ref"} element={<Ref />} />
 
         </Routes>
       </BrowserRouter>
@@ -63,6 +68,9 @@ function Home(){
 
       <h1>Axios</h1>
       <Link to="/ax1">Axios</Link>
+
+      <h1>Ref사용하기</h1>
+      <Link to="/ref">Ref</Link>
 
     </div>
   );
