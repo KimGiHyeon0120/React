@@ -11,7 +11,7 @@ import Out1 from './comp/inp/output01'
 
 import Log1 from './comp/login/login01'
 import Myp1 from './comp/login/mypage01'
-
+import Join1 from './comp/login/Join'
 
 import Ax1 from './comp/ax/ax01'
 
@@ -36,6 +36,7 @@ function App() {
 
           <Route path={"/log1"} element={<Log1 />} />
           <Route path={"/myp1"} element={<Myp1 />} />
+          <Route path={"/join"} element={<Join1 />} />
 
 
 
@@ -65,6 +66,8 @@ function Home(){
 
       <h1>회원가입</h1>
       <Link to="/log1">로그인</Link>
+      <h2>1204.ver2</h2>
+      <Link to="/join">회원가입</Link>
 
       <h1>Axios</h1>
       <Link to="/ax1">Axios</Link>
