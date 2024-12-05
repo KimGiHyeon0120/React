@@ -4,30 +4,18 @@ import ItemArea from './ItemArea'
 
 export default function Study() {
 
-    const [ items, setItems] = useState([]);
+    const [items, setItems] = useState([]);
     const [categoryId, setCategoryId] = useState(0);
     const [keyword, setKeyword] = useState('');
 
     const catagoryLists = [
-        {id: '0', 'name': '전체'},
-        {id: '1', 'name': '도서'},
-        {id: '2', 'name': '전자'},
-        {id: '3', 'name': '생활'}
+        { id: '0', 'name': '전체' },
+        { id: '1', 'name': '도서' },
+        { id: '2', 'name': '전자' },
+        { id: '3', 'name': '생활' }
     ]
 
-    //JavaScript의 오버로딩
-    //Java는 오버로딩이 필요한 갯수만큼 method를 만들면.
-    //JavaScript는 필요 없으면 생략.
-    function startItemList(seachItem) {
-        itemList(seachItem)
-        .then(res => {
-            console.log(res);
-            if(res.data.code == 200) {
-                setItems(res.data.data);
-                console.log(res.data.data);
-            }
-        })
-    }
+
 
     useEffect(() => {
         startItemList();
@@ -37,24 +25,38 @@ export default function Study() {
     //이 부분 사용 할 때, [무한루프] 조심 하세요.
     useEffect(() => {
         seachBtn();
-    }, [keyword]);
+    }, [keyword,categoryId]);
 
-    function categoryNum(num) {
-        console.log('num: ', num);
-    }
+
+
 
     /** 검색 버튼 */
     function seachBtn() {
         let param = new Object();
         param.keyword = keyword;
+        param.categoryIdx = categoryId;
         console.log(param);
 
         startItemList(param); // 아이템 검색
     }
 
+    //JavaScript의 오버로딩
+    //Java는 오버로딩이 필요한 갯수만큼 method를 만들면.
+    //JavaScript는 필요 없으면 생략.
+    function startItemList(seachItem) {
+        itemList(seachItem)
+            .then(res => {
+                console.log(res);
+                if (res.data.code == 200) {
+                    setItems(res.data.data);
+                    console.log(res.data.data);
+                }
+            })
+    }
+
     function changeItem(idx) {
         const copyItems = [...items];
-        copyItems[idx-1] = { ...copyItems[idx-1], good: copyItems[idx-1].good+1 };
+        copyItems[idx - 1] = { ...copyItems[idx - 1], good: copyItems[idx - 1].good + 1 };
         setItems(copyItems);
 
         let obj = new Object();
@@ -63,12 +65,11 @@ export default function Study() {
 
 
         itemGood(obj)
-        .then(res =>{
-            console.log(res);
-        })
     }
 
-    return(
+
+
+    return (
         <div>
             <h1>아이템 리스트</h1>
             {/** 카테고리 리스트 */}
@@ -76,9 +77,10 @@ export default function Study() {
                 (item, index) => (
                     <div key={index}>
                         <a onClick={
-                            e=> {
+                            e => {
                                 e.preventDefault();     //html 기본기능 멈추게 하기
-                                categoryNum(item.id);
+                                setCategoryId(item.id);
+                                seachBtn();
                             }
                         }>{item.name}</a>
                     </div>
@@ -90,8 +92,8 @@ export default function Study() {
                 placeholder='검색'
                 value={keyword}
                 onChange={
-                    e=>setKeyword(e.target.value)
-                }/>
+                    e => setKeyword(e.target.value)
+                } />
             <input type="button" value="검색" onClick={seachBtn} />
             {/** 아이템 리스트 */}
             {items.map(
