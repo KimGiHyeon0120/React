@@ -28,3 +28,15 @@ export const memberLoginCheck = (obj) => {
         }
     })
 }
+
+export const memberRegist = (obj) => {
+    return api.post('/member/regist', JSON.stringify(obj)
+    , {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+export const memberLogin = (obj) => {
+    return api.post('/member/login', JSON.stringify(obj))
+}

@@ -12,12 +12,14 @@ import Out1 from './comp/inp/output01'
 import Log1 from './comp/login/login01'
 import Myp1 from './comp/login/mypage01'
 import Join1 from './comp/login/Join'
+import Login1 from './comp/login/Login'
 
 import Ax1 from './comp/ax/ax01'
 
 
 import Ref from './comp/inp/Ref01'
 
+import ProItemlist from './comp/login/ItemList'
 
 function App() {
   return (
@@ -37,6 +39,8 @@ function App() {
           <Route path={"/log1"} element={<Log1 />} />
           <Route path={"/myp1"} element={<Myp1 />} />
           <Route path={"/join"} element={<Join1 />} />
+          <Route path={"/login"} element={<Login1 />} />
+          <Route path={"/itemlist"} element={<ProItemlist />} />
 
 
 
@@ -68,6 +72,8 @@ function Home(){
       <Link to="/log1">로그인</Link>
       <h2>1204.ver2</h2>
       <Link to="/join">회원가입</Link>
+      <h2>1205.ver2</h2>
+      <Link to="/login">Login</Link>
 
       <h1>Axios</h1>
       <Link to="/ax1">Axios</Link>
@@ -75,6 +81,9 @@ function Home(){
       <h1>Ref사용하기</h1>
       <Link to="/ref">Ref</Link>
 
+
+      <h1>ItemList</h1>
+      <Link to="/itemlist">itemlist</Link>
     </div>
   );
 }

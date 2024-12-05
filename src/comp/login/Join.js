@@ -1,20 +1,24 @@
-import { useEffect, useState } from 'react';
-import { memberIdCheck, areaList, memberLoginCheck } from '../api/member'
+import { useEffect, useRef, useState } from 'react';
+import { memberIdCheck, areaList, memberLoginCheck, memberRegist } from '../api/member'
 import { useNavigate } from 'react-router-dom';
 
 function Study() {
 
+
+
     const [아이디, 변경아이디] = useState('');              //아이디
     const [password, setPassword] = useState('');         //password
     const [birth, setBirth] = useState('');              //생년월일
-    const [name, setname] = useState('');               //이름
+    const [name, setName] = useState('');               //이름
     const [email, setEmail] = useState('');                 //이메일
-    const [gender, setgender] = useState('M');              //성별
+    const [gender, setGender] = useState('M');              //성별
     const [area, setArea] = useState([]);                 //지역
 
 
+    const [idChk, setIdk] = useState('');               //아이디 중복체크
 
-
+    const idRef = useRef();
+    // 아이디 ( 주소, 테그 )
     const [areas, setAreas] = useState([]);                 //지역정보
 
     const [로그인, 변경로그인] = useState('');
@@ -40,13 +44,16 @@ function Study() {
         startList();
     }, []); // 페이지가 처음으로 불러오는 현상 ( 마운트 ) 이 때만 동작 되게 해달라!
 
+
+    //랜더링이 더 이상 ( 개발자가 생각한 외에 발생 될 시 )
+    // useEffect, useMemo, useCallBack 이 부분을 추가!!!! 없으면 그냥 건들지 마세요.!
+    // 위의 기능들은 랜더를 억제하는 것을 목적!!! 많으면 많을수록 사이트가 느려집니다.
     function startList() {
         console.log('=== startList');
         areaList()
             .then(res => {
-                console.log(res);
-                setAreas(res.data.data);
-                setArea(res.data.data[0].Idx)
+                setAreas(res.data.data);            // select 지역리스트 추가
+                setArea(res.data.data[0].idx);      // 지역코드 기본값 ( 첫 번재 index )
             })
     }
 
@@ -56,6 +63,15 @@ function Study() {
 
     function joinAction() {
 
+        //유효성 검사!
+        if (아이디.trim().length == 0 || 아이디 !== idChk) {
+            alert('아이디 중복 체크부터 해주세요.');
+            return;
+        }
+
+        //JavaScript 유효성 검사 코드
+
+        //값 담는다.
         const obj = {
             'userId': 아이디,
             'userPw': password,
@@ -63,12 +79,19 @@ function Study() {
             'email': email,
             'birth': birth,
             'gender': gender,
-            "areaIdx": area
+            'areaIdx': area
         }
-        console.log(obj)
 
+        console.log(obj);
+        memberRegist(obj)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log('err: ', err);
+                console.log(`err:  ${err}`);
+            })
     }
-
 
 
 
@@ -78,11 +101,11 @@ function Study() {
     return (
         <div className="App">
 
-
-            <h1>아이디</h1>
+            {/* 아이디 */}
             <input
                 type='text'
                 placeholder='아이디 입력'
+                ref={idRef}
                 value={아이디}
                 onChange={e => {
                     변경아이디(e.target.value);
@@ -97,9 +120,13 @@ function Study() {
 
                     //성공!
                     check.then(res => {
-                        console.log(res.data.data)
-                        console.log('===== 성공!!!');
-                        console.log(res);
+                        if (res.data.data === 'Y') {
+                            setIdk(아이디);
+                            idRef.current.disabled = true;
+                        }
+                        else{
+                            alert('아이디가 중복됐습니다')
+                        }
                     })
 
                     //실패
@@ -107,62 +134,52 @@ function Study() {
                         console.log(err);
                     })
                 }
-            } />
-
-            <br></br>
+            } /><br />
 
 
             <input
-                type='text'
-                placeholder='비밀번호입력'
+                type="password"
+                placeholder='비밀번호 입력'
                 value={password}
-                onChange={e => {
-                    setPassword(e.target.value);
-                }}
-            /><br></br>
-
-            <input type='text'
-                placeholder='이름을 입력해주세요'
+                onChange={
+                    e => setPassword(e.target.value)
+                }
+            /><br />
+            <input
+                type="text"
+                placeholder='이름 입력해주세요.'
                 value={name}
-                onChange={e => {
-                    setname(e.target.value)
-                }}
-            /><br></br>
-
-            <input type='text'
-                placeholder='email을 입력해주세요'
+                onChange={e => setName(e.target.value)}
+            /><br />
+            <input
+                type="email"
+                placeholder='이메일 입력해주세요.'
                 value={email}
+                onChange={e => setEmail(e.target.value)}
+            /><br />
+            <input
+                type="radio"
+                name="gender"
+                value="M" checked
                 onChange={e => {
-                    setEmail(e.target.value)
-                }}
-            /><br></br>
-
-
-            생년월일 <input type='date'
+                    setGender(e.target.value)
+                }} />남자
+            <input
+                type="radio"
+                name="gender"
+                value="F"
+                onChange={e => {
+                    setGender(e.target.value)
+                }} />여자<br />
+            생년월일 <input
+                type="date"
                 value={birth}
-                onChange={e => setBirth(e.target.value)} /><br></br>
+                onChange={e => { setBirth(e.target.value) }}
+            /> <br />
 
 
-            <input type='radio'
-                name='gender'
-                value='M'
-                onChange={e => {
-                    setgender(e.target.value)
-                }}
-                checked />남자
-
-            <input type='radio'
-                name='gender'
-                value='F'
-                onChange={e => {
-                    setgender(e.target.value)
-                }} />여자
-
-
-
-<br></br>
-            지역정보리스트
-            <select onChange={e => { setArea(e.target.value) }}>
+            지역코드
+            <select onChange={e => setArea(e.target.value)}>
                 {areas.map((item, index) => (
                     <option key={index} value={item.idx}>
                         {item.areaName}
@@ -170,13 +187,16 @@ function Study() {
                 ))}
             </select>
 
+            {/* submit은 유효성 검사가 힘들다. */}
+            <input type="button" value="회원가입" onClick={joinAction} />
 
 
-            <input type='button' value='회원가입' onClick={joinAction()} />
-
-
-
-
+<br></br>
+            <input type='button' value='로그인 창' onClick={
+                () => {
+                    navigate('/login')
+                }
+            } />
 
 
 
