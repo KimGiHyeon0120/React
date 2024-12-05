@@ -4,12 +4,25 @@ import { useNavigate } from 'react-router-dom';
 
 function Study() {
 
-    const [아이디, 변경아이디] = useState('');
-    const [areas, setAreas] = useState([]);
+    const [아이디, 변경아이디] = useState('');              //아이디
+    const [password, setPassword] = useState('');         //password
+    const [birth, setBirth] = useState('');              //생년월일
+    const [name, setname] = useState('');               //이름
+    const [email, setEmail] = useState('');                 //이메일
+    const [gender, setgender] = useState('M');              //성별
+    const [area, setArea] = useState([]);                 //지역
+
+
+
+
+    const [areas, setAreas] = useState([]);                 //지역정보
 
     const [로그인, 변경로그인] = useState('');
-    const [비밀번호, 변경비밀번호] = useState('');
+    const [비번, 변경비번] = useState('');
     //화면이 처음 출력 되었을 때, list에 어떻게 표현 시킬 것인가?
+
+
+
 
 
     const navigate = useNavigate();
@@ -33,10 +46,28 @@ function Study() {
             .then(res => {
                 console.log(res);
                 setAreas(res.data.data);
+                setArea(res.data.data[0].Idx)
             })
     }
 
 
+
+
+
+    function joinAction() {
+
+        const obj = {
+            'userId': 아이디,
+            'userPw': password,
+            'userName': name,
+            'email': email,
+            'birth': birth,
+            'gender': gender,
+            "areaIdx": area
+        }
+        console.log(obj)
+
+    }
 
 
 
@@ -48,7 +79,7 @@ function Study() {
         <div className="App">
 
 
-            <h1>회원 중복체크</h1>
+            <h1>아이디</h1>
             <input
                 type='text'
                 placeholder='아이디 입력'
@@ -78,24 +109,72 @@ function Study() {
                 }
             } />
 
+            <br></br>
+
+
+            <input
+                type='text'
+                placeholder='비밀번호입력'
+                value={password}
+                onChange={e => {
+                    setPassword(e.target.value);
+                }}
+            /><br></br>
+
+            <input type='text'
+                placeholder='이름을 입력해주세요'
+                value={name}
+                onChange={e => {
+                    setname(e.target.value)
+                }}
+            /><br></br>
+
+            <input type='text'
+                placeholder='email을 입력해주세요'
+                value={email}
+                onChange={e => {
+                    setEmail(e.target.value)
+                }}
+            /><br></br>
+
+
+            생년월일 <input type='date'
+                value={birth}
+                onChange={e => setBirth(e.target.value)} /><br></br>
+
+
+            <input type='radio'
+                name='gender'
+                value='M'
+                onChange={e => {
+                    setgender(e.target.value)
+                }}
+                checked />남자
+
+            <input type='radio'
+                name='gender'
+                value='F'
+                onChange={e => {
+                    setgender(e.target.value)
+                }} />여자
 
 
 
-
-
-
-
-
-
-<h1>지역정보리스트</h1>
-
-            <select>
+<br></br>
+            지역정보리스트
+            <select onChange={e => { setArea(e.target.value) }}>
                 {areas.map((item, index) => (
                     <option key={index} value={item.idx}>
                         {item.areaName}
                     </option>
                 ))}
             </select>
+
+
+
+            <input type='button' value='회원가입' onClick={joinAction()} />
+
+
 
 
 
@@ -118,9 +197,9 @@ function Study() {
             <input
                 type='text'
                 placeholder='비밀번호입력'
-                value={비밀번호}
+                value={비번}
                 onChange={e => {
-                    변경비밀번호(e.target.value);
+                    변경비번(e.target.value);
                 }}
             />
             <br></br>
@@ -128,17 +207,17 @@ function Study() {
                 () => {
                     let obj = new Object();
                     obj.userId = 로그인;
-                    obj.userPw = 비밀번호;
+                    obj.userPw = 비번;
 
                     const check = memberLoginCheck(obj);
                     //성공!
                     check.then(res => {
-                        
-                        if(res.data.data === 'Y'){
-                            console.log('로그인 성공');
+
+                        if (res.data.data === 'Y') {
+                            alert('로그인 성공');
                             send();
                         }
-                        else{
+                        else {
                             alert('로그인 실패');
                         }
                     })
