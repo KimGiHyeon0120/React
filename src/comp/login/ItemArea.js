@@ -18,12 +18,13 @@ const index = props.index;
                 'cursor' : 'pointer'
             }
         }>
-            IDX : {item.itemIdx}<br></br>
-            NAME : {item.name}<br></br>
-            가격 : {item.price}<br></br>
+            IDX : {item.itemIdx}&nbsp;|&nbsp;
+            NAME : {item.name}&nbsp;|&nbsp;
+            가격 : {item.price}&nbsp;|&nbsp;
             추천 : {item.good}<br></br>
-            카테고리 이름 : {item.categoryName}<br></br>
-            카테고리 id : {item.categoryId}<br></br>
+            카테고리 id : {item.categoryId}&nbsp;|&nbsp;
+            카테고리 이름 : {item.categoryName}
+
         </div>
     )
 }
