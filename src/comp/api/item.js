@@ -7,3 +7,10 @@ export const itemList = (param) => {
         params: param
     });
 }
+
+
+export const itemGood = (obj) =>{
+    return api.get('/item/good', {
+        params : obj
+    })
+}
