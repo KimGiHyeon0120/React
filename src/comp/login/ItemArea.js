@@ -18,6 +18,7 @@ export default function AreaItem(props) {
                 'cursor': 'pointer'
             }
         }>
+        
             IDX: {item.itemIdx}<br/>
             NAME: {item.name}<br/>
             가격: {item.price}<br/>

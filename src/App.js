@@ -21,6 +21,14 @@ import Ref from './comp/inp/Ref01'
 
 import ProItemlist from './comp/login/ItemList'
 
+
+
+
+
+import BoardList1 from './comp/board1/boardlist'
+import BoardWrite1 from './comp/board1/boardwrite'
+import BoardDetali1 from './comp/board1/boarddetail'
+
 function App() {
   return (
     <div className="App">
@@ -48,6 +56,15 @@ function App() {
 
 
           <Route path={"/ref"} element={<Ref />} />
+
+
+
+
+
+
+          <Route path={"/boardlist1"} element={<BoardList1 />} />
+          <Route path={"/boardwrite1"} element={<BoardWrite1 />} />
+          <Route path="/boarddetail1/:boardId" element={<BoardDetali1 />} />
 
         </Routes>
       </BrowserRouter>
@@ -84,6 +101,14 @@ function Home(){
 
       <h1>ItemList</h1>
       <Link to="/itemlist">itemlist</Link>
+
+
+      <h1>boardlsit과제</h1>
+      <Link to="/boardlist1">BoardList1</Link>
+      <br></br>
+      <Link to="/boardwrite1">BoardWrite1</Link>
+      <br></br>
+      <Link to="/boarddetail1">BoardDetali1</Link>
     </div>
   );
 }

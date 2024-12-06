@@ -31,7 +31,7 @@ export default function Study() {
                 console.log('성공');
                 localStorage.setItem('userId', idValue);
                 localStorage.setItem('auto','random UUID JWT')
-                navigate('/itemlist')
+                navigate('/boardlist1')
             }
             else {
                 idRef.current.value = '';

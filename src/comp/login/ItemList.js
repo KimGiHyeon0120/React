@@ -54,6 +54,11 @@ export default function Study() {
             })
     }
 
+
+
+
+
+
     function changeItem(idx) {
         const copyItems = [...items];
         copyItems[idx - 1] = { ...copyItems[idx - 1], good: copyItems[idx - 1].good + 1 };
@@ -61,12 +66,13 @@ export default function Study() {
 
         let obj = new Object();
         obj.itemIdx = idx;
-
-
-
         itemGood(obj)
     }
 
+
+
+
+    
 
 
     return (
