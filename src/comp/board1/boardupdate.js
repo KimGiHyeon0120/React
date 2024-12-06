@@ -65,7 +65,7 @@ export default function BoardUpdate1({ boardData }) {
                         value={formData.title}
                         onChange={handleChange}
                         style={{
-                            width: "100%",
+                            width: "600px",
                             padding: "10px",
                             border: "2px solid #F6D6D6",
                             borderRadius: "5px",
@@ -87,7 +87,8 @@ export default function BoardUpdate1({ boardData }) {
                         onChange={handleChange}
                         rows="6"
                         style={{
-                            width: "100%",
+                            width: "600px",
+                            height: "300px",
                             padding: "10px",
                             border: "2px solid #F6D6D6",
                             borderRadius: "5px",

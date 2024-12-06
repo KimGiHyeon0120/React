@@ -87,7 +87,7 @@ export default function WritePost() {
                         placeholder="제목 입력"
                         ref={titleRef}
                         style={{
-                            width: "100%",
+                            width: "600px",
                             padding: "10px",
                             border: "2px solid #F6D6D6",
                             borderRadius: "5px",
@@ -111,13 +111,13 @@ export default function WritePost() {
                         placeholder="내용 입력"
                         ref={contentRef}
                         style={{
-                            width: "100%",
+                            width: "600px",
+                            height: "300px",
                             padding: "10px",
                             border: "2px solid #F6D6D6",
                             borderRadius: "5px",
                             fontSize: "16px",
                             color: "#333",
-                            height: "200px",
                         }}
                     />
                 </div>
