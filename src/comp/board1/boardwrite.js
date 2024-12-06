@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { boardWrite } from '../api/board1';
 
 export default function WritePost() {
-
     const navigate = useNavigate();
 
     // Ref 생성
@@ -53,22 +52,121 @@ export default function WritePost() {
     };
 
     return (
-        <div>
-            <h1>글쓰기</h1>
-            <input
-                type="text"
-                placeholder="제목 입력"
-                ref={titleRef}
-            /><br/>
-            <textarea
-                placeholder="내용 입력"
-                ref={contentRef}
-            /><br/>
-            <input
-                type="button"
-                value="글쓰기"
-                onClick={writePostAction}
-            />
+        <div
+            style={{
+                backgroundColor: "#F6F7C4", // 페이지 배경색
+                minHeight: "100vh",
+                padding: "20px",
+                fontFamily: "Arial, sans-serif",
+            }}
+        >
+            <h1 style={{ textAlign: "center", color: "#7BD3EA" }}>글쓰기</h1>
+            <div
+                style={{
+                    backgroundColor: "#FFFFFF",
+                    padding: "30px", // padding을 더 추가하여 크기를 늘림
+                    borderRadius: "10px",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                    maxWidth: "800px", // maxWidth를 늘려 더 넓은 영역 제공
+                    margin: "0 auto",
+                }}
+            >
+                <div style={{ marginBottom: "20px" }}>
+                    <label
+                        htmlFor="title"
+                        style={{
+                            display: "block",
+                            color: "#7BD3EA",
+                            fontWeight: "bold",
+                        }}
+                    >
+                        제목:
+                    </label>
+                    <input
+                        type="text"
+                        placeholder="제목 입력"
+                        ref={titleRef}
+                        style={{
+                            width: "100%",
+                            padding: "10px",
+                            border: "2px solid #F6D6D6",
+                            borderRadius: "5px",
+                            fontSize: "16px",
+                            color: "#333",
+                        }}
+                    />
+                </div>
+                <div style={{ marginBottom: "20px" }}>
+                    <label
+                        htmlFor="content"
+                        style={{
+                            display: "block",
+                            color: "#7BD3EA",
+                            fontWeight: "bold",
+                        }}
+                    >
+                        내용:
+                    </label>
+                    <textarea
+                        placeholder="내용 입력"
+                        ref={contentRef}
+                        style={{
+                            width: "100%",
+                            padding: "10px",
+                            border: "2px solid #F6D6D6",
+                            borderRadius: "5px",
+                            fontSize: "16px",
+                            color: "#333",
+                            height: "200px",
+                        }}
+                    />
+                </div>
+                <div style={{ textAlign: "center" }}>
+                    <input
+                        type="button"
+                        value="글쓰기"
+                        onClick={writePostAction}
+                        style={{
+                            padding: "10px 20px",
+                            backgroundColor: "#A1EEBD",
+                            color: "#FFFFFF",
+                            border: "none",
+                            borderRadius: "5px",
+                            cursor: "pointer",
+                            fontWeight: "bold",
+                            transition: "background-color 0.3s",
+                            marginRight: "10px",
+                        }}
+                        onMouseEnter={(e) =>
+                            (e.target.style.backgroundColor = "#7BD3EA")
+                        }
+                        onMouseLeave={(e) =>
+                            (e.target.style.backgroundColor = "#A1EEBD")
+                        }
+                    />
+                    <input
+                        type="button"
+                        value="취소"
+                        onClick={() => navigate(-1)}
+                        style={{
+                            padding: "10px 20px",
+                            backgroundColor: "#F6D6D6",
+                            color: "#FFFFFF",
+                            border: "none",
+                            borderRadius: "5px",
+                            cursor: "pointer",
+                            fontWeight: "bold",
+                            transition: "background-color 0.3s",
+                        }}
+                        onMouseEnter={(e) =>
+                            (e.target.style.backgroundColor = "#A1EEBD")
+                        }
+                        onMouseLeave={(e) =>
+                            (e.target.style.backgroundColor = "#F6D6D6")
+                        }
+                    />
+                </div>
+            </div>
         </div>
     );
 }
