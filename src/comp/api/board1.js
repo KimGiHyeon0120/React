@@ -23,8 +23,27 @@ export const boardGood = (obj) => {
         }
     })
 }
+
 export const boardWrite = (obj) => {
     return api.post('/board/regist', JSON.stringify(obj)
+    , {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+
+export const boardUpdate = (obj) => {
+    return api.post('/board/modify', JSON.stringify(obj)
+    , {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+
+export const boardRemove = (obj) => {
+    return api.post('/board/remove', JSON.stringify(obj)
     , {
         headers: {
             'Content-Type': 'application/json'

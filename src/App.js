@@ -28,6 +28,7 @@ import ProItemlist from './comp/login/ItemList'
 import BoardList1 from './comp/board1/boardlist'
 import BoardWrite1 from './comp/board1/boardwrite'
 import BoardDetali1 from './comp/board1/boarddetail'
+import BoardUpdate1 from './comp/board1/boardupdate'
 
 function App() {
   return (
@@ -64,6 +65,7 @@ function App() {
 
           <Route path={"/boardlist1"} element={<BoardList1 />} />
           <Route path={"/boardwrite1"} element={<BoardWrite1 />} />
+          <Route path={"/boardupdate1"} element={<BoardUpdate1 />} />
           <Route path="/boarddetail1/:boardId" element={<BoardDetali1 />} />
 
         </Routes>
@@ -109,6 +111,8 @@ function Home(){
       <Link to="/boardwrite1">BoardWrite1</Link>
       <br></br>
       <Link to="/boarddetail1">BoardDetali1</Link>
+      <br></br>
+      <Link to="/boardupdate1">BoardUpdate1</Link>
     </div>
   );
 }

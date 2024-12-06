@@ -11,7 +11,6 @@ export default function Study() {
     function loadBoardList(params) {
         boardlist(params)
             .then((res) => {
-                console.log("API Response: ", res.data); // API 응답 확인
                 setBoardList(res.data.data); // 데이터 상태 업데이트
             })
             .catch((err) => {
@@ -59,10 +58,10 @@ export default function Study() {
         navigate('/boardwrite1', { state: { memberId } }); // memberId를 글쓰기 페이지로 전달
     }
 
-/** 상세보기 페이지 이동 */
-function goToDetailPage(boardIdx) {
-    navigate(`/boarddetail1/${boardIdx}`); // URL 경로 변수 방식으로 전달
-}
+    /** 상세보기 페이지 이동 */
+    function goToDetailPage(boardIdx) {
+        navigate(`/boarddetail1/${boardIdx}`); // URL 경로 변수 방식으로 전달
+    }
 
     return (
         <div>
