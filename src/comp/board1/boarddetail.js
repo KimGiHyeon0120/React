@@ -50,6 +50,10 @@ export default function BoardDetail1() {
             });
     }
 
+
+
+
+    
     function detail() {
         if (boardData) {
             navigate("/boardupdate1", { state: { boardData } });
@@ -57,6 +61,10 @@ export default function BoardDetail1() {
             alert("게시글 데이터를 불러오지 못했습니다.");
         }
     }
+
+
+
+
 
     function deleteBoard() {
         if (window.confirm("게시글을 삭제하시겠습니까?")) {

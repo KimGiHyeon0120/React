@@ -1,9 +1,12 @@
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { boardUpdate } from "../api/board1";
 
-export default function BoardUpdate1({ boardData }) {
+export default function BoardUpdate1() {
+    const location = useLocation();
     const navigate = useNavigate();
+
+    const { boardData } = location.state || {};
 
     const [formData, setFormData] = useState({
         boardId: boardData?.boardId || "",
@@ -12,14 +15,26 @@ export default function BoardUpdate1({ boardData }) {
         memberId: boardData?.memberId || "",
     });
 
-    function handleChange(e) {
+    useEffect(() => {
+        if (!boardData) {
+            alert("수정할 게시글 데이터가 없습니다.");
+            navigate("/boardlist1");
+        }
+    }, [boardData, navigate]);
+
+    // 입력값 변경 처리 함수
+    function handleInputChange(e) {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     }
 
+    // 게시글 수정 요청 처리 함수
     function handleSubmit() {
+        console.log("전송 데이터 확인:", formData);
+
         boardUpdate(formData)
             .then(function (res) {
+                console.log("서버 응답:", res.data);
                 if (res.data.code === "200") {
                     alert("게시글이 수정되었습니다.");
                     navigate("/boardlist1");
@@ -27,7 +42,8 @@ export default function BoardUpdate1({ boardData }) {
                     alert("수정에 실패했습니다.");
                 }
             })
-            .catch(function () {
+            .catch(function (err) {
+                console.error("수정 요청 에러:", err);
                 alert("수정 요청 중 오류가 발생했습니다.");
             });
     }
@@ -63,7 +79,7 @@ export default function BoardUpdate1({ boardData }) {
                         type="text"
                         name="title"
                         value={formData.title}
-                        onChange={handleChange}
+                        onChange={handleInputChange}
                         style={{
                             width: "600px",
                             padding: "10px",
@@ -84,11 +100,11 @@ export default function BoardUpdate1({ boardData }) {
                     <textarea
                         name="content"
                         value={formData.content}
-                        onChange={handleChange}
+                        onChange={handleInputChange}
                         rows="6"
                         style={{
                             width: "600px",
-                            height: "300px",
+                            height: "400px",
                             padding: "10px",
                             border: "2px solid #F6D6D6",
                             borderRadius: "5px",
