@@ -22,6 +22,9 @@ import Ref from './comp/inp/Ref01'
 import ProItemlist from './comp/login/ItemList'
 
 
+import Red1 from './comp/red/Red01'
+
+
 
 
 
@@ -57,6 +60,10 @@ function App() {
 
 
           <Route path={"/ref"} element={<Ref />} />
+
+
+
+          <Route path={"/red01"} element={<Red1 />} />
 
 
 
@@ -113,6 +120,10 @@ function Home(){
       <Link to="/boarddetail1">BoardDetali1</Link>
       <br></br>
       <Link to="/boardupdate1">BoardUpdate1</Link>
+
+      
+      <h1>Reducer</h1>
+      <Link to="/red01">red01</Link>
     </div>
   );
 }
